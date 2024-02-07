@@ -64,4 +64,13 @@ class ConsultasController extends AbstractController
             'autores' => $autores
         ]);
     }
+
+    #[Route('/ap7', name: 'ap7')]
+    public function ap7(LibroRepository $libroRepository): Response
+    {
+        $libros = $libroRepository->findOrderByTituloOptimizado();
+        return $this->render('libro/index.html.twig', [
+            'libros' => $libros
+        ]);
+    }
 }

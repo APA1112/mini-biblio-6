@@ -85,4 +85,21 @@ class LibroRepository extends ServiceEntityRepository
             ->createQuery('SELECT l FROM App\Entity\Libro l WHERE SIZE(l.autores) = 1')
             ->getResult();
     }
+
+    /**
+     * @return Libro[] Returns an array of Libro objects
+     */
+    public function findOrderByTituloOptimizado(): array
+    {
+        // Es la misma consulta del apartado 1, pero optimizada
+        //
+        // Hacemos un FETCH JOIN para traer los autores y la editorial
+        // Usamos LEFT JOIN con editorial para que no elimine los libros que no tienen editorial
+        //
+        // Con esto conseguimos que se haga una sola consulta a la base de datos
+        return $this
+            ->getEntityManager()
+            ->createQuery('SELECT l, a, e FROM App\Entity\Libro l JOIN l.autores a LEFT JOIN l.editorial e ORDER BY l.titulo ASC')
+            ->getResult();
+    }
 }
