@@ -21,28 +21,14 @@ class AutorRepository extends ServiceEntityRepository
         parent::__construct($registry, Autor::class);
     }
 
-//    /**
-//     * @return Autor[] Returns an array of Autor objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Autor
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * @return Autor[] Returns an array of Autor objects
+     */
+    public function findOrderByEdad(): array
+    {
+        return $this
+            ->getEntityManager()
+            ->createQuery('SELECT a FROM App\Entity\Autor a ORDER BY a.fechaNacimiento DESC')
+            ->getResult();
+    }
 }

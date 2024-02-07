@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Libro;
+use App\Repository\AutorRepository;
 use App\Repository\LibroRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,6 +53,15 @@ class ConsultasController extends AbstractController
         $libros = $libroRepository->findUnAutor();
         return $this->render('libro/index.html.twig', [
             'libros' => $libros
+        ]);
+    }
+
+    #[Route('/ap6', name: 'ap6')]
+    public function ap6(AutorRepository $autorRepository): Response
+    {
+        $autores = $autorRepository->findOrderByEdad();
+        return $this->render('autor/ap6.html.twig', [
+            'autores' => $autores
         ]);
     }
 }
