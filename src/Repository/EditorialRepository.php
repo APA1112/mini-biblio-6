@@ -32,4 +32,23 @@ class EditorialRepository extends ServiceEntityRepository
             ->setParameter('int', $total)
             ->getResult();
     }
+
+    /**
+     * @return Editorial[] Returns an array of Editorial objects
+     */
+    public function findOrderByLibrosDesc(): array
+    {
+        // Si no queremos que se devuelva el total de libros, podemos usar el método SIZE con la cláusula HIDDEN
+        // para que no aparezca en los resultados devueltos, así se devuelven entidades puras
+        //return $this
+        //    ->getEntityManager()
+        //    ->createQuery('SELECT e, SIZE(e.libros) AS HIDDEN total FROM App\Entity\Editorial e ORDER BY total DESC')
+        //    ->getResult();
+
+        // Devuelve un resultado mixto de una entidad (editorial) y el número de libros (total)
+        return $this
+            ->getEntityManager()
+            ->createQuery('SELECT e AS editorial, SIZE(e.libros) AS total FROM App\Entity\Editorial e ORDER BY total DESC')
+            ->getResult();
+    }
 }

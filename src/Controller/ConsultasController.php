@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Editorial;
 use App\Entity\Libro;
 use App\Repository\AutorRepository;
 use App\Repository\EditorialRepository;
@@ -99,6 +100,27 @@ class ConsultasController extends AbstractController
         $editoriales = $editorialRepository->findSizeLibrosMenorQue(5);
         return $this->render('editorial/index.html.twig', [
             'editoriales' => $editoriales
+        ]);
+    }
+
+    #[Route('/ap10', name: 'ap10')]
+    public function ap10(EditorialRepository $editorialRepository): Response
+    {
+        $editoriales = $editorialRepository->findOrderByLibrosDesc();
+        return $this->render('editorial/ap10.html.twig', [
+            'editoriales' => $editoriales
+        ]);
+    }
+
+    #[Route('/ap10/{id}', name: 'ap10_libros')]
+    public function ap10Libros(LibroRepository $libroRepository, Editorial $editorial): Response
+    {
+        // Si nos da igual el orden, podemos usar el método getLibros
+        //$libros = $editorial->getLibros();
+
+        $libros = $libroRepository->findByEditorialOrderByTitulo($editorial);
+        return $this->render('libro/index.html.twig', [
+            'libros' => $libros
         ]);
     }
 }

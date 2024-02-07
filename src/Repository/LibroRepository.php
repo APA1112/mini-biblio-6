@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Editorial;
 use App\Entity\Libro;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -100,6 +101,48 @@ class LibroRepository extends ServiceEntityRepository
         return $this
             ->getEntityManager()
             ->createQuery('SELECT l, a, e FROM App\Entity\Libro l JOIN l.autores a LEFT JOIN l.editorial e ORDER BY l.titulo ASC')
+            ->getResult();
+    }
+
+    /**
+     * @return Libro[] Returns an array of Libro objects
+     */
+    public function findByEditorial(Editorial $editorial): array
+    {
+        return $this
+            ->getEntityManager()
+            ->createQuery('SELECT l FROM App\Entity\Libro l WHERE l.editorial = :editorial')
+            ->setParameter('editorial', $editorial)
+            ->getResult();
+    }
+
+    /**
+     * @return Libro[] Returns an array of Libro objects
+     */
+    public function findByAutor(Autor $autor): array
+    {
+        // Forma alternativa, menos eficiente
+        //return $this
+        //    ->getEntityManager()
+        //    ->createQuery('SELECT l FROM App\Entity\Libro l JOIN l.autores a WHERE a = :autor')
+        //    ->setParameter('autor', $autor)
+        //    ->getResult();
+        return $this
+            ->getEntityManager()
+            ->createQuery('SELECT l FROM App\Entity\Libro l WHERE :autor MEMBER OF l.autores')
+            ->setParameter('autor', $autor)
+            ->getResult();
+    }
+
+    /**
+     * @return Libro[] Returns an array of Libro objects
+     */
+    public function findByEditorialOrderByTitulo(Editorial $editorial): array
+    {
+        return $this
+            ->getEntityManager()
+            ->createQuery('SELECT l FROM App\Entity\Libro l WHERE l.editorial = :editorial ORDER BY l.titulo ASC')
+            ->setParameter('editorial', $editorial)
             ->getResult();
     }
 }
