@@ -18,4 +18,13 @@ class LibroController extends AbstractController
             'libros' => $libros
         ]);
     }
+
+    #[Route('/libro/autores/{id}', name: 'libro_autores')]
+    public function autores(Libro $libro): Response
+    {
+        return $this->render('libro/autores.html.twig', [
+            'libro' => $libro,
+            'autores' => $libro->getAutores()
+        ]);
+    }
 }

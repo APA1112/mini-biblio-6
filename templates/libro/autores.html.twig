@@ -1,0 +1,32 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block title %}Autores de {{ libro }} - {{ parent() }}{% endblock %}
+
+{% block content %}
+    <h1>Autores de {{ libro }}</h1>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Fecha de nacimiento</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for autor in autores %}
+                <tr>
+                    <td>{{ autor.nombre }}</td>
+                    <td>{{ autor.apellidos }}</td>
+                    <td>{{ autor.fechaNacimiento ? autor.fechaNacimiento|date('d/m/Y') : '---' }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('libro_listar') }}" class="btn btn-primary">
+        <i class="fa fa-arrow-left"></i> Volver al listado de libros
+    </a>
+{% endblock %}
+
+

@@ -17,7 +17,7 @@
         <tbody>
             {% for libro in libros %}
                 <tr>
-                    <th scope="row">{{ libro.titulo }}</th>
+                    <th scope="row"><a href="{{ path('libro_autores', {'id': libro.id}) }}">{{ libro.titulo }}</a></th>
                     <td>{{ libro.editorial | default('---') }}</td>
                     <td>{{ libro.autores | join(', ') }}</td>
                     <td>{{ libro.anioPublicacion }}</td>
