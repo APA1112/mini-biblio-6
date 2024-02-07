@@ -1,0 +1,25 @@
+{% set current_path = app.request.get('_route')|split('_') %}
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('principal') }}"><i class="fa fa-book-open"></i> MiniBiblio</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link {{ current_path[0] == 'principal' ? 'active' }}" aria-current="page" href="{{ path('principal') }}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Sección 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Sección 2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Sección 3</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
