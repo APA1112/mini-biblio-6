@@ -36,4 +36,13 @@ class ConsultasController extends AbstractController
             'libros' => $libros
         ]);
     }
+
+    #[Route('/ap4', name: 'ap4')]
+    public function ap4(LibroRepository $libroRepository): Response
+    {
+        $libros = $libroRepository->findBySinLetraEditorial('a');
+        return $this->render('libro/index.html.twig', [
+            'libros' => $libros
+        ]);
+    }
 }
