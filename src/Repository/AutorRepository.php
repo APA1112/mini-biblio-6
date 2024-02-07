@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Autor;
+use App\Entity\Libro;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -29,6 +30,24 @@ class AutorRepository extends ServiceEntityRepository
         return $this
             ->getEntityManager()
             ->createQuery('SELECT a AS autor, SIZE(a.libros) AS total FROM App\Entity\Autor a ORDER BY a.fechaNacimiento DESC')
+            ->getResult();
+    }
+
+    /**
+     * @return Autor[] Returns an array of Autor objects
+     */
+    public function findByLibroOrderByApellidosNombre(Libro $libro): array
+    {
+        // Forma alternativa, menos eficiente
+        //return $this
+        //    ->getEntityManager()
+        //    ->createQuery('SELECT a FROM App\Entity\Autor a JOIN a.libros l WHERE l = :libro ORDER BY a.apellidos, a.nombre')
+        //    ->setParameter('libro', $libro)
+        //    ->getResult();
+        return $this
+            ->getEntityManager()
+            ->createQuery('SELECT a FROM App\Entity\Autor a WHERE :libro MEMBER OF a.libros ORDER BY a.apellidos, a.nombre')
+            ->setParameter('libro', $libro)
             ->getResult();
     }
 }

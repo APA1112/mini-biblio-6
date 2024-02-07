@@ -73,4 +73,22 @@ class ConsultasController extends AbstractController
             'libros' => $libros
         ]);
     }
+
+    #[Route('/ap8', name: 'ap8')]
+    public function ap8(LibroRepository $libroRepository): Response
+    {
+        $libros = $libroRepository->findOrderByTituloOptimizado();
+        return $this->render('libro/ap8.html.twig', [
+            'libros' => $libros
+        ]);
+    }
+
+    #[Route('/ap8/{id}', name: 'ap8_autores')]
+    public function ap8Autores(AutorRepository $autorRepository, Libro $libro): Response
+    {
+        $autores = $autorRepository->findByLibroOrderByApellidosNombre($libro);
+        return $this->render('autor/ap8.html.twig', [
+            'autores' => $autores
+        ]);
+    }
 }

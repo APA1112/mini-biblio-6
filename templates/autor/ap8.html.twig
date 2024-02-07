@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block title %}Autores - {{ parent() }}{% endblock %}
+
+{% block content %}
+    <h1>Listado de autores</h1>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Fecha de nacimiento</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for autor in autores %}
+                <tr>
+                    <td>{{ autor.nombre }}</td>
+                    <td>{{ autor.apellidos }}</td>
+                    <td>{{ autor.fechaNacimiento ? autor.fechaNacimiento|date('d/m/Y') : '---' }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">No se han encontrado autores</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
