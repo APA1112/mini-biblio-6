@@ -16,12 +16,12 @@
             </tr>
         </thead>
         <tbody>
-            {% for autor in autores %}
+            {% for fila in autores %}
                 <tr>
-                    <td>{{ autor.nombre }}</td>
-                    <td>{{ autor.apellidos }}</td>
-                    <td>{{ autor.fechaNacimiento ? autor.fechaNacimiento|date('d/m/Y') : '---' }}</td>
-                    <td>{{ autor.libros | length }}</td>
+                    <td>{{ fila.autor.nombre }}</td>
+                    <td>{{ fila.autor.apellidos }}</td>
+                    <td>{{ fila.autor.fechaNacimiento ? fila.autor.fechaNacimiento|date('d/m/Y') : '---' }}</td>
+                    <td>{{ fila.total }}</td>
                 </tr>
             {% else %}
                 <tr>

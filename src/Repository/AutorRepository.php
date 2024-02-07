@@ -28,7 +28,7 @@ class AutorRepository extends ServiceEntityRepository
     {
         return $this
             ->getEntityManager()
-            ->createQuery('SELECT a FROM App\Entity\Autor a ORDER BY a.fechaNacimiento DESC')
+            ->createQuery('SELECT a AS autor, SIZE(a.libros) AS total FROM App\Entity\Autor a ORDER BY a.fechaNacimiento DESC')
             ->getResult();
     }
 }
