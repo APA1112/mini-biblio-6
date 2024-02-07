@@ -35,4 +35,19 @@ class LibroRepository extends ServiceEntityRepository
             ->createQuery('SELECT l FROM App\Entity\Libro l ORDER BY l.titulo ASC')
             ->getResult();
     }
+
+    /**
+     * @return Libro[] Returns an array of Libro objects
+     */
+    public function findOrderByAnioPublicacionDesc(): array
+    {
+        // Usando métodos del repositorio
+        //return $this->findBy([], ['anioPublicacion' => 'DESC']);
+
+        // Usando DQL
+        return $this
+            ->getEntityManager()
+            ->createQuery('SELECT l FROM App\Entity\Libro l ORDER BY l.anioPublicacion DESC')
+            ->getResult();
+    }
 }
