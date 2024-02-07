@@ -45,4 +45,13 @@ class ConsultasController extends AbstractController
             'libros' => $libros
         ]);
     }
+
+    #[Route('/ap5', name: 'ap5')]
+    public function ap5(LibroRepository $libroRepository): Response
+    {
+        $libros = $libroRepository->findUnAutor();
+        return $this->render('libro/index.html.twig', [
+            'libros' => $libros
+        ]);
+    }
 }

@@ -74,4 +74,15 @@ class LibroRepository extends ServiceEntityRepository
             ->setParameter('texto', '%' . $letra . '%')
             ->getResult();
     }
+
+    /**
+     * @return Libro[] Returns an array of Libro objects
+     */
+    public function findUnAutor(): array
+    {
+        return $this
+            ->getEntityManager()
+            ->createQuery('SELECT l FROM App\Entity\Libro l WHERE SIZE(l.autores) = 1')
+            ->getResult();
+    }
 }
