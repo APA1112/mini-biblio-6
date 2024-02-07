@@ -1,0 +1,27 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Listado de editoriales - {{ parent() }}{% endblock %}
+
+{% block content %}
+    <h1>Listado de editoriales</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Localidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for editorial in editoriales %}
+                <tr>
+                    <th scope="row">{{ editorial.nombre }}</th>
+                    <td>{{ editorial.localidad }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <th colspan="2">No hay editoriales registradas</th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

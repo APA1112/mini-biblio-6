@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Libro;
 use App\Repository\AutorRepository;
+use App\Repository\EditorialRepository;
 use App\Repository\LibroRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -89,6 +90,15 @@ class ConsultasController extends AbstractController
         $autores = $autorRepository->findByLibroOrderByApellidosNombre($libro);
         return $this->render('autor/ap8.html.twig', [
             'autores' => $autores
+        ]);
+    }
+
+    #[Route('/ap9', name: 'ap9')]
+    public function ap9(EditorialRepository $editorialRepository): Response
+    {
+        $editoriales = $editorialRepository->findSizeLibrosMenorQue(5);
+        return $this->render('editorial/index.html.twig', [
+            'editoriales' => $editoriales
         ]);
     }
 }
