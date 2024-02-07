@@ -27,4 +27,13 @@ class ConsultasController extends AbstractController
             'libros' => $libros
         ]);
     }
+
+    #[Route('/ap3/{palabra}', name: 'ap3')]
+    public function ap3(LibroRepository $libroRepository, string $palabra): Response
+    {
+        $libros = $libroRepository->findByPalabraTitulo($palabra);
+        return $this->render('libro/index.html.twig', [
+            'libros' => $libros
+        ]);
+    }
 }

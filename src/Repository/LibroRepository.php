@@ -50,4 +50,16 @@ class LibroRepository extends ServiceEntityRepository
             ->createQuery('SELECT l FROM App\Entity\Libro l ORDER BY l.anioPublicacion DESC')
             ->getResult();
     }
+
+    /**
+     * @return Libro[] Returns an array of Libro objects
+     */
+    public function findByPalabraTitulo(string $palabra): array
+    {
+        return $this
+            ->getEntityManager()
+            ->createQuery('SELECT l FROM App\Entity\Libro l WHERE l.titulo LIKE :texto')
+            ->setParameter('texto', '%' . $palabra . '%')
+            ->getResult();
+    }
 }
