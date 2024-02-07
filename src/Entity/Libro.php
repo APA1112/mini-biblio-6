@@ -35,6 +35,10 @@ class Libro
         $this->autores = new ArrayCollection();
     }
 
+    public function __toString(): string {
+        return $this->titulo . ' (' . $this->anioPublicacion . ')';
+    }
+
     public function getId(): ?int
     {
         return $this->id;

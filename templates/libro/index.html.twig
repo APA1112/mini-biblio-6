@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Listado de libros - {{ parent() }}{% endblock %}
+
+{% block content %}
+    <h1>Listado de libros</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Título</th>
+                <th scope="col">Editorial</th>
+                <th scope="col">Autores</th>
+                <th scope="col">Año de publicación</th>
+                <th scope="col">Páginas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for libro in libros %}
+                <tr>
+                    <th scope="row">{{ libro.titulo }}</th>
+                    <td>{{ libro.editorial | default('---') }}</td>
+                    <td>{{ libro.autores | join(', ') }}</td>
+                    <td>{{ libro.anioPublicacion }}</td>
+                    <td>{{ libro.paginas }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <th colspan="5">No hay libros registrados</th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

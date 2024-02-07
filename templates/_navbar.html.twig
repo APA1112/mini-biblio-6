@@ -8,10 +8,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link {{ current_path[0] == 'principal' ? 'active' }}" aria-current="page" href="{{ path('principal') }}">Inicio</a>
+                    <a class="nav-link {{ current_path[0] == 'principal' ? 'active" aria-current="page' }}" href="{{ path('principal') }}">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sección 1</a>
+                    <a class="nav-link {{ current_path[0] == 'libro' ? 'active" aria-current="page' }}" href="{{ path('libro_listar') }}"><i class="fa fa-book"></i> Libros</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Sección 2</a>

@@ -33,6 +33,11 @@ class Autor
         $this->libros = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->getNombre() . ' ' . $this->getApellidos();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
