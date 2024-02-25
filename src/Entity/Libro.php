@@ -30,6 +30,10 @@ class Libro
     #[ORM\ManyToMany(targetEntity: Autor::class, inversedBy: 'libros')]
     private Collection $autores;
 
+    #[ORM\ManyToOne(targetEntity: Socio::class, inversedBy: 'libros')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Socio $socio;
+
     public function __construct()
     {
         $this->autores = new ArrayCollection();
@@ -115,4 +119,16 @@ class Libro
 
         return $this;
     }
+
+    public function getSocio(): ?Socio
+    {
+        return $this->socio;
+    }
+
+    public function setSocio(?Socio $socio): Libro
+    {
+        $this->socio = $socio;
+        return $this;
+    }
+
 }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SocioRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SocioRepository::class)]
@@ -23,6 +25,8 @@ class Socio
     private ?bool $esDocente;
     #[ORM\Column(type: 'boolean')]
     private ?bool $esEstudiante;
+    #[ORM\OneToMany(targetEntity: Libro::class, mappedBy: 'socio')]
+    private Collection $libros;
 
     public function getId(): ?int
     {
@@ -84,4 +88,24 @@ class Socio
         return $this;
     }
 
+    /**
+     * @return Collection
+     */
+    public function getLibros(): Collection
+    {
+        return $this->libros;
+    }
+
+    public function addLibro(Libro $libro): static
+    {
+        if (!$this->libros->contains($libro)){
+            $this->libros->add($libro);
+        }
+        return $this;
+    }
+
+    public function removeLibro(Libro $libro): static{
+        $this->libros->removeElement($libro);
+        return $this;
+    }
 }
