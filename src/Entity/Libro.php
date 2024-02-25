@@ -34,6 +34,11 @@ class Libro
     #[ORM\JoinColumn(nullable: false)]
     private ?Socio $socio;
 
+    #[ORM\Column(type: 'string', unique: true)]
+    private ?string $isbn;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $precioCompra;
+
     public function __construct()
     {
         $this->autores = new ArrayCollection();
@@ -130,5 +135,28 @@ class Libro
         $this->socio = $socio;
         return $this;
     }
+
+    public function getIsbn(): ?string
+    {
+        return $this->isbn;
+    }
+
+    public function setIsbn(?string $isbn): Libro
+    {
+        $this->isbn = $isbn;
+        return $this;
+    }
+
+    public function getPrecioCompra(): ?int
+    {
+        return $this->precioCompra;
+    }
+
+    public function setPrecioCompra(?int $precioCompra): Libro
+    {
+        $this->precioCompra = $precioCompra;
+        return $this;
+    }
+
 
 }

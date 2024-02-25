@@ -27,6 +27,8 @@ class Socio
     private ?bool $esEstudiante;
     #[ORM\OneToMany(targetEntity: Libro::class, mappedBy: 'socio')]
     private Collection $libros;
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $telefono;
 
     public function getId(): ?int
     {
@@ -108,4 +110,16 @@ class Socio
         $this->libros->removeElement($libro);
         return $this;
     }
+
+    public function getTelefono(): ?string
+    {
+        return $this->telefono;
+    }
+
+    public function setTelefono(?string $telefono): Socio
+    {
+        $this->telefono = $telefono;
+        return $this;
+    }
+
 }
