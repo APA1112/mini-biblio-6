@@ -91,7 +91,7 @@ class Autor
     {
         if (!$this->libros->contains($libro)) {
             $this->libros->add($libro);
-            $libro->addAutore($this);
+            $libro->addAutor($this);
         }
 
         return $this;
@@ -100,7 +100,7 @@ class Autor
     public function removeLibro(Libro $libro): static
     {
         if ($this->libros->removeElement($libro)) {
-            $libro->removeAutore($this);
+            $libro->removeAutor($this);
         }
 
         return $this;
