@@ -12,6 +12,7 @@
                 <th scope="col">Autores</th>
                 <th scope="col">Año de publicación</th>
                 <th scope="col">Páginas</th>
+                <th scope="col" colspan="2">Gestión</th>
             </tr>
         </thead>
         <tbody>
@@ -22,10 +23,12 @@
                     <td>{{ libro.autores | join(', ') }}</td>
                     <td>{{ libro.anioPublicacion }}</td>
                     <td>{{ libro.paginas }}</td>
+                    <td><a href="{{ path('libro_modificar', {'id': libro.id}) }}">Modificiar</a></td>
+                    <td><a href="{{ path('libro_eliminar', {'id': libro.id}) }}">Eliminar</a></td>
                 </tr>
                 {% else %}
                 <tr>
-                    <th colspan="5">No hay libros registrados</th>
+                    <th colspan="7">No hay libros registrados</th>
                 </tr>
             {% endfor %}
         </tbody>

@@ -145,4 +145,9 @@ class LibroRepository extends ServiceEntityRepository
             ->setParameter('editorial', $editorial)
             ->getResult();
     }
+
+    public function save(Libro $libro)
+    {
+        $this->getEntityManager()->flush();
+    }
 }

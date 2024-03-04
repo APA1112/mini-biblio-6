@@ -1,0 +1,10 @@
+{% extends 'layout.html.twig' %}
+{% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
+{% block body %}
+    <h2>Modificar libro</h2>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{{ path('libro_listar') }}" class="btn btn-secondary">Volver</a>
+    {{ form_end(form) }}
+{% endblock %}
