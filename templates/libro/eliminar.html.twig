@@ -1,10 +1,14 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-
-{% endblock %}
-
-{% block title %}
-
+    <h1>Eliminar libro</h1>
+    <div class="alert alert-danger">
+        El libro {{ libro.titulo }} será eliminado de la aplicación.
+        La operación no se puede deshacer.
+    </div>
+    <form method="post">
+        <a href="{{ path('libro_listar') }}" class="btn btn-info">Volver al listado</a>
+        <button type="submit" name="confirmar" class="btn btn-danger">Confirmar eliminación</button>
+    </form>
 {% endblock %}
 

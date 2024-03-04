@@ -146,8 +146,12 @@ class LibroRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function save(Libro $libro)
+    public function save()
     {
         $this->getEntityManager()->flush();
+    }
+
+    public function remove(Libro $libro){
+        $this->getEntityManager()->remove($libro);
     }
 }
