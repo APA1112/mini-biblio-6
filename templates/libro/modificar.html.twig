@@ -1,7 +1,11 @@
 {% extends 'layout.html.twig' %}
 {% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
 {% block body %}
-    <h2>Modificar libro</h2>
+    {% if libro.id is null %}
+        <h2>Introducir datos del nuevo libro</h2>
+    {% else %}
+        <h2>Modificar datos del libro</h2>
+    {% endif %}
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <button type="submit" class="btn btn-primary">Guardar</button>

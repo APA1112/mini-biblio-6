@@ -154,4 +154,8 @@ class LibroRepository extends ServiceEntityRepository
     public function remove(Libro $libro){
         $this->getEntityManager()->remove($libro);
     }
+
+    public function add(Libro $libro){
+        $this->getEntityManager()->persist($libro);
+    }
 }

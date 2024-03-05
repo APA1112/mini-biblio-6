@@ -31,36 +31,53 @@ class LibroController extends AbstractController
     }
 
     #[Route('/libro/modificar/{id}', name: 'libro_modificar')]
-    public function modificar(Request $request,Libro $libro, LibroRepository $libroRepository): Response {
+    public function modificar(Request $request, Libro $libro, LibroRepository $libroRepository): Response
+    {
         $form = $this->createForm(LibroType::class, $libro);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()){
+        $nuevo = $libro->getId() === null;
+
+        if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $libroRepository->save($libro);
-                $this->addFlash('success', 'Cambios guardados con éxito');
+                $libroRepository->save();
+                if ($nuevo) {
+                    $this->addFlash('success', 'Libro creado con éxito');
+                } else {
+                    $this->addFlash('success', 'Cambios guardados con éxito');
+                }
                 return $this->redirectToRoute('libro_listar');
-            } catch (\Exception $e){
+            } catch (\Exception $e) {
                 $this->addFlash('error', 'No se han podido guardar los cambios');
             }
         }
-        return $this->render('libro/modificar.html.twig', ['form'=>$form->createView()]);
+        return $this->render('libro/modificar.html.twig', ['form' => $form->createView(), 'libro'=>$libro]);
     }
 
     #[Route('/libro/eliminar/{id}', name: 'libro_eliminar')]
-    public function eliminar(Request $request, LibroRepository $libroRepository, Libro $libro) : Response {
-        if ($request->request->has('confirmar')){
+    public function eliminar(Request $request, LibroRepository $libroRepository, Libro $libro): Response
+    {
+        if ($request->request->has('confirmar')) {
             try {
                 $libroRepository->remove($libro);
                 $libroRepository->save();
                 $this->addFlash('success', 'Libro eliminado con éxito');
                 return $this->redirectToRoute('libro_listar');
-            } catch (\Exception $e){
+            } catch (\Exception $e) {
                 $this->addFlash('error', 'No se ha podido eliminar el libro');
             }
         }
 
-        return $this->render('libro/eliminar.html.twig', ['libro'=>$libro]);
+        return $this->render('libro/eliminar.html.twig', ['libro' => $libro]);
+    }
+
+    #[Route('/libro/nuevo', name: 'libro_nuevo')]
+    public function nuevo(Request $request, LibroRepository $libroRepository): Response
+    {
+        $libro = new Libro();
+        $libroRepository->add($libro);
+
+        return $this->modificar($request, $libro, $libroRepository);
     }
 }
