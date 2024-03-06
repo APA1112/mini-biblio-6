@@ -6,8 +6,11 @@ use App\Repository\LibroRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LibroRepository::class)]
+#[UniqueEntity(fields: 'isbn', message: 'Ya existe un libro con esta matricula')]
 class Libro
 {
     #[ORM\Id]
@@ -15,18 +18,24 @@ class Libro
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2)]
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $titulo = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: 'integer')]
     private ?int $anioPublicacion = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: 'integer')]
     private ?int $paginas = null;
 
+    #[Assert\NotBlank]
     #[ORM\ManyToOne(targetEntity: Editorial::class, inversedBy: 'libros')]
     private ?Editorial $editorial = null;
 
+    #[Assert\Count(min: 1)]
     #[ORM\ManyToMany(targetEntity: Autor::class, inversedBy: 'libros')]
     private Collection $autores;
 
@@ -34,8 +43,12 @@ class Libro
     #[ORM\JoinColumn(nullable: true)]
     private ?Socio $socio;
 
-    #[ORM\Column(type: 'string', unique: true)]
-    private ?string $isbn;
+    #[Assert\Isbn]
+    #[ORM\Column(type: 'string', unique: true, nullable: true)]
+    private ?string $isbn = null;
+
+    #[Assert\NotBlank]
+    #[Assert\Positive(message: 'El precio no puede ser negativo')]
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $precioCompra;
 
@@ -44,7 +57,8 @@ class Libro
         $this->autores = new ArrayCollection();
     }
 
-    public function __toString(): string {
+    public function __toString(): string
+    {
         return $this->titulo . ' (' . $this->anioPublicacion . ')';
     }
 
