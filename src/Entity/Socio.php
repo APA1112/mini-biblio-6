@@ -37,6 +37,8 @@ class Socio
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $telefono;
 
+    private ?string $email;
+
     public function __construct()
     {
         $this->libros = new ArrayCollection();
