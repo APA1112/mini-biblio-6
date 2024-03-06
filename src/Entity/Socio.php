@@ -6,9 +6,14 @@ use App\Repository\SocioRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Context\ExecutionContext;
 
 #[ORM\Entity(repositoryClass: SocioRepository::class)]
 #[ORM\Table(name: 'socio')]
+#[UniqueEntity(fields: 'dni', message: 'Ya existe un socio con ese DNI')]
 class Socio
 {
     #[ORM\Id]
@@ -18,8 +23,10 @@ class Socio
     #[ORM\Column(type: 'string', unique: true)]
     private ?string $dni;
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank]
     private ?string $apellidos;
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank]
     private ?string $nombre;
     #[ORM\Column(type: 'boolean')]
     private ?bool $esDocente;
@@ -127,5 +134,12 @@ class Socio
         return $this->getNombre() . ' ' . $this->getApellidos();
     }
 
-
+    public function validate(ExecutionContext $context, $payload) : void {
+        if(!$this->esDocente || !$this->esEstudiante){
+            $context->buildViolation('Un socio debe de ser estudiante, docente o ambos')
+                ->atPath('esEstudiante')
+                ->atPath('esDocente')
+                ->addViolation();
+        }
+    }
 }
