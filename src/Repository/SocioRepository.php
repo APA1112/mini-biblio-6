@@ -12,4 +12,16 @@ class SocioRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Socio::class);
     }
+    public function save()
+    {
+        $this->getEntityManager()->flush();
+    }
+
+    public function remove(Socio $socio){
+        $this->getEntityManager()->remove($socio);
+    }
+
+    public function add(Socio $socio){
+        $this->getEntityManager()->persist($socio);
+    }
 }

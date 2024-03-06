@@ -1,0 +1,14 @@
+{% extends 'layout.html.twig' %}
+{% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
+{% block body %}
+    {% if socio.id is null %}
+        <h2>Introducir datos del nuevo socio</h2>
+    {% else %}
+        <h2>Modificar los datos del socio</h2>
+    {% endif %}
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{{ path('socio_listar') }}" class="btn btn-secondary">Volver</a>
+    {{ form_end(form) }}
+{% endblock %}

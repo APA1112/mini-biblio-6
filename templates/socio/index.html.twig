@@ -1,0 +1,39 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Listado de socios - {{ parent() }}{% endblock %}
+
+{% block content %}
+    <h1>Listado de socios</h1>
+    <a href="{{ path('socio_nuevo') }}" class="btn btn-primary">Nuevo</a>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">DNI</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Docente</th>
+            <th scope="col">Estudiante</th>
+            <th scope="col" >Telefono</th>
+            <th scope="col"  colspan="2">Gestión</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for socio in socios %}
+            <tr>
+                <td>{{ socio.dni }}</td>
+                <td>{{ socio.apellidos }}</td>
+                <td>{{ socio.nombre }}</td>
+                <td>{{ socio.esDocente?'Si':'No' }}</td>
+                <td>{{ socio.esEstudiante?'Si':'No' }}</td>
+                <td>{{ socio.telefono==null?'No hay telefono':socio.telefono }}</td>
+                <td><a href="{{ path('socio_modificar', {'id': socio.id}) }}">Modificiar</a></td>
+                <td><a href="{{ path('socio_eliminar', {'id': socio.id}) }}">Eliminar</a></td>
+            </tr>
+        {% else %}
+            <tr>
+                <th colspan="7">No hay socios registrados</th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
