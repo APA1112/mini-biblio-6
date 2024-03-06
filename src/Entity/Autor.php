@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ORM\Entity(repositoryClass: AutorRepository::class)]
 class Autor
@@ -17,12 +19,19 @@ class Autor
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2)]
+    #[Assert\Regex(pattern: '^[^\d]+$')]
     private ?string $nombre = null;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2)]
+    #[Assert\Regex(pattern: '^[^\d]+\s[^\d]+$')]
     private ?string $apellidos = null;
 
     #[ORM\Column(type: 'date', nullable: true)]
+    #[Assert\LessThan('today')]
     private ?\DateTimeInterface $fechaNacimiento = null;
 
     #[ORM\ManyToMany(targetEntity: Libro::class, mappedBy: 'autores')]
