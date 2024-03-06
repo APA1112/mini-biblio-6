@@ -53,6 +53,7 @@ class LibroType extends AbstractType
                 }
             ])
             ->add('socio', EntityType::class, [
+                'required'=>false,
                 'class'=>Socio::class,
                 'expanded'=>false,
                 'choice_label'=>function (Socio $socio) {

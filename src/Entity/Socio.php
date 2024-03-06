@@ -37,6 +37,11 @@ class Socio
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $telefono;
 
+    public function __construct()
+    {
+        $this->libros = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,17 +110,17 @@ class Socio
         return $this->libros;
     }
 
-    public function addLibro(Libro $libro): static
+    public function addLibro(Libro $libro)
     {
         if (!$this->libros->contains($libro)){
             $this->libros->add($libro);
+            $libro->setSocio($this);
         }
-        return $this;
     }
 
-    public function removeLibro(Libro $libro): static{
+    public function removeLibro(Libro $libro) {
         $this->libros->removeElement($libro);
-        return $this;
+        $libro->setSocio(null);
     }
 
     public function getTelefono(): ?string
