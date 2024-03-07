@@ -17,11 +17,11 @@ class SocioRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
     }
 
-    public function remove(Socio $socio){
+    public function remove(Socio $socio): void{
         $this->getEntityManager()->remove($socio);
     }
 
-    public function add(Socio $socio){
+    public function add(Socio $socio): void{
         $this->getEntityManager()->persist($socio);
     }
 }
