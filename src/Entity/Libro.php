@@ -146,8 +146,6 @@ class Libro
 
     public function setSocio(?Socio $socio): Libro
     {
-        dump('hola3');
-
         $this->socio = $socio;
         return $this;
     }
