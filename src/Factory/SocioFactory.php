@@ -53,7 +53,8 @@ final class SocioFactory extends ModelFactory
             'esEstudiante' => self::faker()->boolean(50),
             'nombre' => self::faker()->firstName(),
             'email'=>self::faker()->email(),
-            'isAdmin'=>self::faker()->boolean(0)
+            'isAdmin'=>self::faker()->boolean(0),
+            'telefono'=>self::faker()->phoneNumber()
         ];
     }
 
