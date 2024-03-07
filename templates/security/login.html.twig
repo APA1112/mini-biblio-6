@@ -5,8 +5,11 @@
 {% block body %}
     <form method="post">
         <h1>Acceso a la aplicación</h1>
-        <input type="text" name="_username" placeholder="Correo electrónico" required autofocus>
-        <input type="password" name="_password" placeholder="Contraseña" required>
-        <button type="submit">Entrar</button>
+        {% if error %}
+            <h2 style="color: red">{{ error.message }}</h2>
+        {% endif %}
+        <input type="text" value="{{ last_username }}" name="_username" placeholder="Correo electrónico" required {% if not error %}autofocus{% endif %}>
+        <input type="password" name="_password" placeholder="Contraseña" required {% if error %}autofocus{% endif %}>
+        <button type="submit" class="btn btn-primary">Entrar</button>
     </form>
 {% endblock %}
