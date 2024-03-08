@@ -8,6 +8,7 @@ use App\Repository\SocioRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SocioController extends AbstractController
@@ -62,9 +63,10 @@ class SocioController extends AbstractController
     }
 
     #[Route('/socio/nuevo', name: 'socio_nuevo')]
-    public function addSocio(Request $request, SocioRepository $socioRepository) : Response
+    public function addSocio(Request $request, SocioRepository $socioRepository, UserPasswordHasherInterface $passwordHasher) : Response
     {
         $socio = new Socio();
+        $socio->setPassword($passwordHasher->hashPassword($socio, 'cambiame'));
         $socioRepository->add($socio);
 
         return $this->modSocio($request, $socio, $socioRepository);
